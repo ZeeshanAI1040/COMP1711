@@ -52,8 +52,14 @@ int main() {
         return 1;
     }
 
+    // Count and print the number of records in the file
+    while (fgets(line_buffer, buffer_size, csv_file) != NULL) {
+        num_of_lines++;
+    }
+    printf("Number of records in file: %d\n", num_of_lines);
 
-    printf("Number of lines in the file: %d\n", num_of_lines);
+    // Rewind the file to read and print the first three lines
+    rewind(csv_file);
 
     while (num_of_records < 3 && fgets(line_buffer, sizeof(line_buffer), csv_file) != NULL) {
         char date[11];
@@ -69,11 +75,6 @@ int main() {
         num_of_records++;
     }
 
-    while (fgets(line_buffer, buffer_size, csv_file) != NULL) {
-        num_of_lines++;
-    }
-
     fclose(csv_file);
     return 0;
 }
-

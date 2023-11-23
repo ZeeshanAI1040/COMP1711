@@ -43,23 +43,22 @@ void tokeniseRecord(const char *input, const char *delimiter,
 
 // Complete the main function
 int main() {
-    int num_of_records = 0;
-    char line_buffer[buffer_size];
+    int num_of_records = 0;     //initializes a variable called num_of_records, to be used later
+    char line_buffer[buffer_size];      //creates a string variable called line_buffer, with predefined size
     
-    FILE *csv_file = fopen("FitnessData_2023.csv", "r");
-    if (csv_file == NULL) {
+    FILE *csv_file = fopen("FitnessData_2023.csv", "r");        //opens the file in read mode
+    if (csv_file == NULL) {     //If the file an't be opened, print an error and end it.
         perror("Error opening file");
         return 1;
     }
 
     // Count and print the number of records in the file
-    while (fgets(line_buffer, buffer_size, csv_file) != NULL) {
-        num_of_lines++;
+    while (fgets(line_buffer, buffer_size, csv_file) != NULL) { //reads the file line-by-line; while it can still do this, the function is executed
+        num_of_lines++;         //while the file can be read from, add 1 to the number of lines variable
     }
-    printf("Number of records in file: %d\n", num_of_lines);
+    printf("Number of records in file: %d\n", num_of_lines);    //prints the number of lines
 
-    // Rewind the file to read and print the first three lines
-    rewind(csv_file);
+    rewind(csv_file);   //sends the line-by-line reader back to the beginning of the file.
 
     while (num_of_records < 3 && fgets(line_buffer, sizeof(line_buffer), csv_file) != NULL) {
         char date[11];
@@ -67,14 +66,14 @@ int main() {
         int steps;
 
         // Parse the line into date, time, and steps
-        tokeniseRecord(line_buffer, ",", date, time, &steps);
+        tokeniseRecord(line_buffer, ",", date, time, &steps); //stores the data into 3 variables; data, time and steps.
 
         // Print the formatted output
-        printf("%s/%s/%d\n", date, time, steps);
+        printf("%s/%s/%d\n", date, time, steps);    //prints data, time and steps.
 
-        num_of_records++;
+        num_of_records++;      //increments number of records.
     }
 
-    fclose(csv_file);
+    fclose(csv_file);   //closes the file
     return 0;
 }
